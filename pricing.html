@@ -1,5 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script
+    src='//eu.fw-cdn.com/10713913/375987.js'
+    chat='false'>
+    
+    var new_contact =
+    {
+          "First name": "John", //Replace with first name of the user
+          "Last name": "Doe",  //Replace with last name of the user
+          "Email": "john.doe@example.com", //Replace with email of the user
+          "Alternate contact number": "98765432", //Replace with a custom field
+          "company": {
+              "Name": "Example.com", //Replace with company name
+              "Website": "www.example.com" //Replace with website of company
+          }
+    };
+    var identifier = "john.doe@example.com";
+    fwcrm.identify(identifier, new_contact)
+    </script>
 <head>
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -36,25 +54,7 @@
 
     <!-- Main Style CSS  -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <script
-    src='//eu.fw-cdn.com/10713913/375987.js'
-    chat='false'>
-    
-    var new_contact =
-    {
-          "First name": "John", //Replace with first name of the user
-          "Last name": "Doe",  //Replace with last name of the user
-          "Email": "john.doe@example.com", //Replace with email of the user
-          "Alternate contact number": "98765432", //Replace with a custom field
-          "company": {
-              "Name": "Example.com", //Replace with company name
-              "Website": "www.example.com" //Replace with website of company
-          }
-    };
-    var identifier = "john.doe@example.com";
-    fwcrm.identify(identifier, new_contact)
-    
-    </script>
+
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
