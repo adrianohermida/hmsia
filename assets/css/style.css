@@ -4761,7 +4761,16 @@ img {
     margin-right: auto;
   }
     
-
+/* Correção 9: Definir a largura máxima do formulário como 100% */
+form {
+    max-width: 100%;
+  }
+  
+  /* Correção 10: Adicionar uma margem inferior ao contêiner pai */
+  .container {
+    margin-bottom: 50px;
+  }
+  
 }
 /*==========Responsive End==========*/
 
