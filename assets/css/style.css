@@ -4770,6 +4770,24 @@ form {
   .container {
     margin-bottom: 50px;
   }
+ 
+/* Correção 11: Adicionar uma margem superior ao formulário */
+form {
+    margin-top: 50px;
+  }
+  
+  /* Correção 12: Ajustar a largura do formulário */
+  form {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Correção 13: Adicionar uma quebra de linha após o texto */
+  p {
+    margin-bottom: 20px;
+  }
+
   
 }
 /*==========Responsive End==========*/
