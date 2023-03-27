@@ -4697,6 +4697,34 @@ input, input:focus, input:hover, button, button:hover, button:focus {
         width: 174px;
     }
 
+/* Correção 1: Definir a largura máxima do contêiner principal como 100% */
+.container {
+    max-width: 100%;
+    width: auto;
+  }
+  
+  /* Correção 2: Definir o tamanho da fonte para 16px e diminuir para 14px em telas menores */
+  body {
+    font-size: 16px;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    body {
+      font-size: 14px;
+    }
+  }
+  
+  /* Correção 3: Aumentar o espaçamento entre elementos */
+  p, ul, ol {
+    margin-bottom: 20px;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    p, ul, ol {
+      margin-bottom: 10px;
+    }
+  
+
 }
 /*==========Responsive End==========*/
 
