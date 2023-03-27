@@ -4790,6 +4790,33 @@ form {
     margin-bottom: 20px;
   }
 
+  /* Correção 14: Definir o tamanho da fonte do título do FAQ e adicionar uma margem inferior */
+.faq-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  /* Correção 15: Adicionar um ícone de seta à direita do título e ajustar o posicionamento */
+  .faq-title:before {
+    content: "\25B6";
+    margin-right: 5px;
+  }
+  
+  /* Correção 16: Definir a largura máxima do conteúdo do FAQ e adicionar uma margem esquerda e direita automática */
+  .faq-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Correção 17: Adicionar um estilo de hover ao título */
+  .faq-title:hover {
+    cursor: pointer;
+  }
+  
+  /* Correção 18: Adicionar um estilo de hover ao ícone de seta */
+  .faq-title:hover:before {
+    color: #7f8c8d;
+  }
   
 }
 /*==========Responsive End==========*/
