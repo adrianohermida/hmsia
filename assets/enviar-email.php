@@ -1,8 +1,10 @@
 <?php
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $destinatario = $_POST['destinatario'];
-    $nome = $_POST['name'];
+    $nome = $_POST['firstname'];
+    $nome = $_POST['lastname'];
     $email = $_POST['email'];
+    $phone = $_POST['phone'];
     $mensagem = $_POST['message'];
 
     $assunto = 'Contato pelo formulário de Hermida Maia Advocacia';
@@ -11,8 +13,10 @@
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
     $headers .= "From: $nome <$email>\r\n";
 
-    $mensagem_completa = "<p><strong>Nome:</strong> $nome</p>";
+    $mensagem_completa = "<p><strong>Nome:</strong> $fistename</p>";
+    $mensagem_completa = "<p><strong>Sobrenome:</strong> $lastnome</p>";
     $mensagem_completa .= "<p><strong>E-mail:</strong> $email</p>";
+    $mensagem_completa .= "<p><strong>Phone</strong> $phone</p>";
     $mensagem_completa .= "<p><strong>Mensagem:</strong> $mensagem</p>";
 
     $enviado = mail($destinatario, $assunto, $mensagem_completa, $headers);
