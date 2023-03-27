@@ -4723,7 +4723,44 @@ input, input:focus, input:hover, button, button:hover, button:focus {
     p, ul, ol {
       margin-bottom: 10px;
     }
+  }
   
+  /* Correção 4: Corrigir o posicionamento do cabeçalho */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+  
+  /* Correção 5: Ajustar a largura dos elementos do formulário */
+  .form-group {
+    width: 100%;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .form-group {
+      width: 50%;
+    }
+  /* Correção 6: Definir a largura máxima das imagens como 100% */
+img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Correção 7: Adicionar uma classe para imagens que devem ter uma margem inferior */
+  img.with-margin {
+    margin-bottom: 20px;
+  }
+  
+  /* Correção 8: Adicionar uma classe para imagens que devem ser centralizadas horizontalmente */
+  img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+    
 
 }
 /*==========Responsive End==========*/
