@@ -1,30 +1,29 @@
 <?php
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $destinatario = $_POST['destinatario'];
-    $nome = $_POST['firstname'];
-    $nome = $_POST['lastname'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $mensagem = $_POST['message'];
 
-    $assunto = 'Contato pelo formulário de Hermida Maia Advocacia';
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-    $headers .= "From: $nome <$email>\r\n";
+    // Definir informações do e-mail
+    $to = "faleconosco@hermidamaia.adv.br";
+    $subject = "Mensagem de contato do site";
+    $headers = "From: " . $_POST["First_Name"] . " " . $_POST["Last_Name"] . " <" . $_POST["Email_Address"] . ">\r\n";
+    $headers .= "Reply-To: " . $_POST["Email_Address"] . "\r\n";
+    $headers .= "Cc: " . $_POST["Email_Address"] . "\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-    $mensagem_completa = "<p><strong>Nome:</strong> $fistename</p>";
-    $mensagem_completa = "<p><strong>Sobrenome:</strong> $lastnome</p>";
-    $mensagem_completa .= "<p><strong>E-mail:</strong> $email</p>";
-    $mensagem_completa .= "<p><strong>Phone</strong> $phone</p>";
-    $mensagem_completa .= "<p><strong>Mensagem:</strong> $mensagem</p>";
+    // Construir corpo do e-mail
+    $message = "<p><strong>Nome:</strong> " . $_POST["First_Name"] . " " . $_POST["Last_Name"] . "</p>";
+    $message .= "<p><strong>E-mail:</strong> " . $_POST["Email_Address"] . "</p>";
+    $message .= "<p><strong>Telefone:</strong> " . $_POST["Phone_No"] . "</p>";
+    $message .= "<p><strong>Mensagem:</strong> " . $_POST["Message"] . "</p>";
 
-    $enviado = mail($destinatario, $assunto, $mensagem_completa, $headers);
+    // Enviar e-mail
+    $result = mail($to, $subject, $message, $headers);
 
-    if ($enviado) {
-      echo '<p>Mensagem enviada com sucesso!</p>';
+    // Verificar se o e-mail foi enviado com sucesso
+    if($result) {
+        echo "Mensagem enviada com sucesso!";
     } else {
-      echo '<p>Erro ao enviar mensagem. Por favor, tente novamente mais tarde.</p>';
+        echo "Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.";
     }
-  }
-?>
+
+}
