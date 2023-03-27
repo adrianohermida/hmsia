@@ -255,62 +255,56 @@
     <!--Service Detail End-->
 
 
-    <!--Get In Touch Start-->
-    <section class="main-get-touch-in">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="get-touch-title">
-                        <div class="small-title">
-                            <h2 class="h2-subtitle">Contato</h2>
-                        </div>
-                        <h2 class="h2-title">Entre em contato conosco</h2>
+<!--Get In Touch Start-->
+<section class="main-get-touch-in">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="get-touch-title">
+                    <div class="small-title">
+                        <h2 class="h2-subtitle">Contato</h2>
                     </div>
+                    <h2 class="h2-title">Entre em contato conosco</h2>
                 </div>
-                <div class="col-lg-12">
-                    <div class="get-touch-form">
-                        <form>
-                            <form action="assets/enviar-email.php" method="POST">
-                                <input type="hidden" name="destinatario" value="faleconosco@hermidamaia.adv.br">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12 col-sm-12"> 
-                                    <div class="form-box">
-                                        <input type="text" name="First Name" class="form-input" placeholder="Primeiro nome" required="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
-                                    <div class="form-box">
-                                        <input type="text" name="Last Name" class="form-input" placeholder="Sobrenome" required="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
-                                    <div class="form-box">
-                                        <input type="email" name="Email" class="form-input" placeholder="Endereço de e-mail" required="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
-                                    <div class="form-box">
-                                        <input type="text" name="Phone" class="form-input" placeholder="Número de celular (incluso DDD)" required="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-box mb-0">
-                                        <textarea class="form-input" placeholder="Descreva o seu caso"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-box sub-btn mb-0">
-                                        <button type="submit" class="sec-btn"><span>Enviar seu caso</span></button>
-                                    </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="get-touch-form">
+                    <form method="POST" action="mailto:faleconosco@hermidamaia.adv.br" enctype="text/plain">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12 col-sm-12"> 
+                                <div class="form-box">
+                                    <input type="text" name="nome" class="form-input" placeholder="Nome completo" required="">
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="form-box">
+                                    <input type="email" name="email" class="form-input" placeholder="Endereço de e-mail" required="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="form-box">
+                                    <input type="tel" name="telefone" class="form-input" placeholder="Telefone (incluso DDD)" required="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-box mb-0">
+                                    <textarea name="mensagem" class="form-input" placeholder="Deixe sua mensagem"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-box sub-btn mb-0">
+                                    <button type="submit" class="sec-btn"><span>Enviar seu caso</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
-    <!--Get In Touch End-->
+    </div>
+</section>
+<!--Get In Touch End-->
+
 
     <!--FAQ Start-->
     <section class="main-faq">
