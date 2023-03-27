@@ -1779,7 +1779,9 @@ input, input:focus, input:hover, button, button:hover, button:focus {
 }
 
 .faq-content-box {
-    padding-left: 30px;
+    padding-left: 800px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .accordion-item.faq-bg {
