@@ -3843,6 +3843,8 @@ input, input:focus, input:hover, button, button:hover, button:focus {
         width: 100%;
         margin-left: 0;
         margin-top: 30px;
+        margin-bottom: 20px;
+  
     }
 
     .service-detail-img-1 {
