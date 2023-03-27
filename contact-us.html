@@ -17,8 +17,7 @@
     };
     var identifier = "john.doe@example.com";
     fwcrm.identify(identifier, new_contact)
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    </script>
+     </script>
 
 
 <head>
@@ -60,6 +59,38 @@
 
     <!-- Main Style CSS  -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    
+    <!-- Freshdesk Ticket  -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+$(document).ready(function() {
+  $('form').submit(function(event) {
+    event.preventDefault(); // impede que o formulário seja enviado automaticamente
+    var formData = {
+      "helpdesk_ticket[email]": $('input[name="Email Address"]').val(),
+      "helpdesk_ticket[name]": $('input[name="First Name"]').val() + ' ' + $('input[name="Last Name"]').val(),
+      "helpdesk_ticket[phone]": $('input[name="Phone No"]').val(),
+      "helpdesk_ticket[description]": $('textarea').val(),
+      "helpdesk_ticket[status]": 2 // 2 significa "aberto"
+    };
+    $.ajax({
+      url: 'https://hmadv-org.freshdesk.com/api/v2/tickets',
+      type: 'POST',
+      dataType: 'json',
+      headers: {
+        'Authorization': 'Basic ' + btoa('dcokfw09vVDv3VqF1lSk:X') // Substitua "yourapikey" pelo seu API key do Freshdesk
+      },
+      data: formData,
+      success: function(response) {
+        alert('Ticket aberto com sucesso!'); // Exibe uma mensagem de sucesso para o usuário
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert('Erro ao abrir ticket: ' + textStatus); // Exibe uma mensagem de erro para o usuário
+      }
+    });
+  });
+});
+
+    </script>
 
 </head>
 <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/c80673d4-66ea-4f2a-8768-5efce308ab19-loader.js" ></script>
