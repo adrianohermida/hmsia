@@ -611,34 +611,7 @@
             </div>
             <h2 class="h2-title">Temos todas as suas respostas aqui</h2>
             <div class="accordion faq-box" id="accordionExample">
-              <form id="faq-form" action="">
-                <div class="form-group mb-3">
-                  <label for="faq-question" class="form-label">Faça sua pergunta</label>
-                  <input type="text" class="form-control" id="faq-question" name="faq-question" placeholder="Digite sua pergunta aqui">
-                </div>
-                <div class="form-group mb-3">
-                  <label for="faq-email" class="form-label">Digite seu e-mail</label>
-                  <input type="email" class="form-control" id="faq-email" name="faq-email" placeholder="Seu e-mail aqui">
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Enviar</button>
-                </div>
-              </form>
-              <div class="faq-response" style="display: none;">
-                <div class="accordion-item faq-bg wow fadeup-animation" data-wow-delay="0.3s">
-                  <h3 class="accordion-header h3-title" id="faq-response-header">
-                    <button class="accordion-button faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq-response-body" aria-expanded="true" aria-controls="faq-response-body">
-                      <span class="faq-response-question"></span>
-                      <span class="icon"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-                    </button>
-                  </h3>
-                  <div id="faq-response-body" class="accordion-collapse collapse show" aria-labelledby="faq-response-header" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <p class="faq-response-answer"></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <!-- Preenchimento das perguntas e respostas do FAQ com JavaScript -->
             </div>
           </div>
         </div>
@@ -646,6 +619,33 @@
     </div>
   </section>
   <!--FAQ End-->
+  
+  <script>
+    // Busca as perguntas e respostas do FAQ em um arquivo JSON hospedado no GitHub
+    fetch('https://raw.githubusercontent.com/seu-usuario/seu-repositorio/master/perguntas_respostas.json')
+      .then(response => response.json())
+      .then(data => {
+        // Preenche as perguntas e respostas no HTML com base nos dados do arquivo JSON
+        const faqBox = document.querySelector('.faq-box');
+        data.forEach(item => {
+          const html = `
+            <div class="accordion-item faq-bg wow fadeup-animation" data-wow-delay="${item.delay}">
+              <h3 class="accordion-header h3-title" id="${item.id}">
+                <button class="accordion-button faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#${item.target}" aria-expanded="${item.expanded}" aria-controls="${item.controls}">
+                  ${item.question}<span class="icon"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                </button>
+              </h3>
+              <div id="${item.id}" class="accordion-collapse collapse ${item.show}" aria-labelledby="${item.id}" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <p>${item.answer}</p>
+                </div>
+              </div>
+            </div>
+          `;
+          faqBox.insertAdjacentHTML('beforeend', html);
+        });
+      });
+  </script>
 
     <!--Testimonial Start-->
     <section class="main-testimonial">
