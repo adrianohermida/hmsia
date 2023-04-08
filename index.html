@@ -592,60 +592,59 @@
 <!--FAQ Start-->
 <section class="main-faq">
     <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 wow fadeInLeft animated" data-wow-delay=".4s">
-          <div class="faq-img-box">
-            <div class="faq-img-1">
-              <img src="assets/images/faq-img-1.jpg" alt="faq">
-            </div>
-            <div class="faq-img-2">
-              <img src="assets/images/faq-img-2.jpg" alt="faq">
-            </div>
-          </div>
-          <img class="faq-img-3" src="assets/images/faq-img-3.jpg" alt="faq">
-        </div>
-        <div class="col-lg-6">
-          <div class="faq-content-box">
-            <div class="small-title">
-              <h2 class="h2-subtitle">FAQ</h2>
-            </div>
-            <h2 class="h2-title">Temos todas as suas respostas aqui</h2>
-            <div class="accordion faq-box" id="accordionExample">
-              <!-- Preenchimento das perguntas e respostas do FAQ com JavaScript -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--FAQ End-->
-  
-  <script>
-    // Busca as perguntas e respostas do FAQ em um arquivo JSON hospedado no GitHub
-    fetch('https://raw.githubusercontent.com/seu-usuario/seu-repositorio/master/perguntas_respostas.json')
-      .then(response => response.json())
-      .then(data => {
-        // Preenche as perguntas e respostas no HTML com base nos dados do arquivo JSON
-        const faqBox = document.querySelector('.faq-box');
-        data.forEach(item => {
-          const html = `
-            <div class="accordion-item faq-bg wow fadeup-animation" data-wow-delay="${item.delay}">
-              <h3 class="accordion-header h3-title" id="${item.id}">
-                <button class="accordion-button faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#${item.target}" aria-expanded="${item.expanded}" aria-controls="${item.controls}">
-                  ${item.question}<span class="icon"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-                </button>
-              </h3>
-              <div id="${item.id}" class="accordion-collapse collapse ${item.show}" aria-labelledby="${item.id}" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <p>${item.answer}</p>
+        <div class="row align-items-center">
+            <div class="col-lg-6 wow fadeInLeft animated" data-wow-delay=".4s">
+                <div class="faq-img-box">
+                    <div class="faq-img-1">
+                        <img src="assets/images/faq-img-1.jpg" alt="faq">
+                    </div>
+                    <div class="faq-img-2">
+                        <img src="assets/images/faq-img-2.jpg" alt="faq">
+                    </div>
                 </div>
-              </div>
+                <img class="faq-img-3" src="assets/images/faq-img-3.jpg" alt="faq">
             </div>
-          `;
-          faqBox.insertAdjacentHTML('beforeend', html);
-        });
-      });
-  </script>
+            <div class="col-lg-6">
+                <div class="faq-content-box">
+                    <div class="small-title">
+                        <h2 class="h2-subtitle">FAQ</h2>
+                    </div>
+                    <h2 class="h2-title">Temos todas as suas respostas aqui</h2>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="pergunta" placeholder="Faça sua pergunta aqui">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" onclick="buscarResposta()">Buscar</button>
+                        </div>
+                    </form>
+                    <div id="resposta"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--FAQ End-->
+
+<script>
+    function buscarResposta() {
+        var inputPergunta = document.getElementById("pergunta").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var jsonRespostas = JSON.parse(this.responseText);
+                var resposta = jsonRespostas.respostas.find(r => r.pergunta.toLowerCase() === inputPergunta.toLowerCase());
+                if (resposta) {
+                    document.getElementById("resposta").innerHTML = '<div class="accordion faq-box"><div class="accordion-item faq-bg wow fadeup-animation" data-wow-delay="0.3s"><h3 class="accordion-header h3-title" id="heading1"><button class="accordion-button faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">' + resposta.pergunta + '<span class="icon"><i class="fa fa-angle-left" aria-hidden="true"></i></span></button></h3><div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample"><div class="accordion-body">' + resposta.resposta + '</div></div></div></div>';
+                } else {
+                    document.getElementById("resposta").innerHTML = "<p>Não encontramos uma resposta para sua pergunta. Por favor, tente novamente com outra pergunta.</p>";
+                }
+            }
+        };
+        xhttp.open("GET", "perguntas-respostas.json", true);
+        xhttp.send();
+    }
+</script>
 
     <!--Testimonial Start-->
     <section class="main-testimonial">
