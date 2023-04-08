@@ -52,3 +52,32 @@ fetch('assets/js/perguntas-respostas.json')
   .catch(error => {
     console.log(`Ocorreu um erro na requisição: ${error}`);
   });
+  const form = document.querySelector('#faq-form');
+  const searchInput = document.querySelector('#faq-search-input');
+  const searchButton = document.querySelector('#faq-search-button');
+  
+  searchButton.addEventListener('click', event => {
+    event.preventDefault();
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    if (searchTerm !== '') {
+      const results = data.filter(item => item.question.toLowerCase().includes(searchTerm));
+      if (results.length > 0) {
+        renderFAQ(results);
+      } else {
+        // Se não houver perguntas correspondentes, exibe uma mensagem de aviso
+        const html = `<div class="accordion-item faq-bg wow fadeup-animation"><h3 class="accordion-header h3-title"><button class="accordion-button faq-btn" type="button">Nenhuma pergunta correspondente encontrada</button></h3></div>`;
+        faqBox.innerHTML = html;
+      }
+    } else {
+      // Caso a busca esteja vazia, exibe todas as perguntas e respostas
+      renderFAQ(data);
+    }
+  });
+  
+  searchInput.addEventListener('keydown', event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      searchButton.click();
+    }
+  });
+  

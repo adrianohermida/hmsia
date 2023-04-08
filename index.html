@@ -614,12 +614,17 @@
             <h2 class="h2-title">Temos todas as suas respostas aqui</h2>
             <form id="faq-form">
               <div class="form-group">
-                <input type="text" class="form-control" id="faq-search-input" placeholder="Buscar...">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="faq-search-input" placeholder="Buscar...">
+                  <button type="button" class="btn btn-primary" id="faq-search-btn">Buscar</button>
+                </div>
               </div>
               <div class="form-group">
+                <label for="faq-category-select">Categoria:</label>
                 <select class="form-control" id="faq-category-select">
-                  <option value="">Todas as categorias</option>
+                  <option value="">Todos</option>
                   <option value="superendividamento">Superendividamento</option>
+                  <option value="outras-categorias">Outras categorias</option>
                 </select>
               </div>
             </form>
@@ -632,6 +637,7 @@
     </div>
   </section>
   <!--FAQ End-->
+  
   
   
   <script src="assets/js/perguntas-respostas.json"></script>
