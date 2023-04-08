@@ -626,10 +626,23 @@
     </div>
   </section>
   <!--FAQ End-->
-    
-  <script src="assets/js/faq.js"></script>
+  
+  <script src="assets/js/perguntas-respostas.json"></script>
   <script src="assets/js/busca.js"></script>
   <script src="assets/js/contato.js"></script>
+  <script src="assets/js/faq.js"></script>
+  
+  <script>
+    // Carrega as perguntas e respostas do FAQ
+    carregarFAQ();
+  
+    // Adiciona um listener para o formulário de contato
+    document.querySelector('#contact-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      enviarEmail();
+    });
+  </script>
+  
   
 
     <!--Testimonial Start-->
