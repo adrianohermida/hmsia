@@ -51,6 +51,8 @@
 
 </head>
 <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/c80673d4-66ea-4f2a-8768-5efce308ab19-loader.js" ></script>
+<script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+<script src="caminho/para/seu/script.js"></script>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -626,70 +628,43 @@
   <!--FAQ End-->
   
   <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
-  <script>
-    // Busca as perguntas e respostas do FAQ em um arquivo JSON hospedado no seu servidor
-    fetch('perguntas_respostas.json')
-      .then(response => response.json())
-      .then(data => {
-        const faqBox = document.querySelector('.faq-box');
-        const form = document.querySelector('#faq-form');
-        const searchInput = document.querySelector('#pergunta');
-        
-        // Função para preencher o FAQ com base no termo de busca
-        const searchFAQ = termoBusca => {
-          faqBox.innerHTML = '';
-          const resultados = data.filter(item => {
-            const regex = new RegExp(termoBusca, 'gi');
-            return item.question.match(regex) || item.answer.match(regex);
-          });
-          if (resultados.length === 0) {
-            faqBox.innerHTML = '<p class="resultado-vazio">Não foram encontrados resultados para a sua busca.</p>';
-            // Envia um email informando que não foram encontrados resultados
-            const body = `A busca pelo termo "${termoBusca}" não retornou nenhum resultado.`;
-            const email = {
-              to: 'seu-email@example.com',
-              from: 'faq@seusite.com',
-              subject: 'Busca no FAQ',
-              body: body
-            };
-            emailjs.send('service_8uyp8mr', 'yandex_hermidamaia', {
-              to_email: email.to,
-              from_name: email.from,
-              subject: email.subject,
-              message: email.body
-            }).
-        } else {
-          resultados.forEach(item => {
-            const html = `
-              <div class="accordion-item faq-bg wow fadeup-animation" data-wow-delay="${item.delay}">
-                <h3 class="accordion-header h3-title" id="${item.id}">
-                  <button class="accordion-button faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${item.target}" aria-expanded="${item.expanded}" aria-controls="${item.controls}">
-                    ${item.question}<span class="icon"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-                  </button>
-                </h3>
-                <div id="${item.id}" class="accordion-collapse collapse ${item.show}" aria-labelledby="${item.id}" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <p>${item.answer}</p>
-                  </div>
-                </div>
-              </div>
-            `;
-            faqBox.insertAdjacentHTML('beforeend', html);
-          });
-        }
-      }
-      
-      // Evento para buscar no FAQ ao submeter o formulário
-      form.addEventListener('submit', event => {
-        event.preventDefault();
-        searchFAQ(searchInput.value);
-      });
-    });
-    
-    // Configuração do EmailJS
-    emailjs.init('yandex_hermidamaia');
-  });
-  <script> 
+  
+  <section class="main-faq">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 wow fadeInLeft animated" data-wow-delay=".4s">
+          <div class="faq-img-box">
+            <div class="faq-img-1">
+              <img src="assets/images/faq-img-1.jpg" alt="faq">
+            </div>
+            <div class="faq-img-2">
+              <img src="assets/images/faq-img-2.jpg" alt="faq">
+            </div>
+          </div>
+          <img class="faq-img-3" src="assets/images/faq-img-3.jpg" alt="faq">
+        </div>
+        <div class="col-lg-6">
+          <div class="faq-content-box">
+            <div class="small-title">
+              <h2 class="h2-subtitle">FAQ</h2>
+            </div>
+            <h2 class="h2-title">Temos todas as suas respostas aqui</h2>
+            <form id="faq-form" class="faq-search-form">
+              <input type="text" id="faq-search-input" class="form-control" placeholder="Digite sua pergunta aqui">
+              <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+            </form>
+            <div class="accordion faq-box" id="accordionExample">
+              <!-- Preenchimento das perguntas e respostas do FAQ com JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+  <script src="assets/js/faq.js"></script>
+  
 
     <!--Testimonial Start-->
     <section class="main-testimonial">
