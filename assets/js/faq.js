@@ -1,5 +1,5 @@
 // Busca as perguntas e respostas do FAQ em um arquivo JSON hospedado no GitHub
-fetch('https://raw.githubusercontent.com/seu-usuario/seu-repositorio/master/perguntas_respostas.json')
+fetch('perguntas_respostas.json')
   .then(response => response.json())
   .then(data => {
     // Preenche as perguntas e respostas no HTML com base nos dados do arquivo JSON
