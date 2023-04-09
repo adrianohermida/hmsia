@@ -4700,3 +4700,117 @@ input, input:focus, input:hover, button, button:hover, button:focus {
 }
 /*==========Responsive End==========*/
 
+/* Formulário de endividamento */
+.form-endividamento {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+  
+  .form-endividamento form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .form-endividamento label,
+  .form-endividamento input,
+  .form-endividamento button {
+    width: 100%;
+  }
+  
+  .form-endividamento label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  .form-endividamento input {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-endividamento button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .form-endividamento button:hover {
+    background-color: #555;
+  }
+  
+  #resultado-simulacao {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Texto explicativo sobre a ação de superendividamento */
+  .text-superendividamento {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    text-align: justify;
+  }
+  
+  /* Perguntas e respostas frequentes sobre
+a ação de superendividamento */
+.faq-superendividamento {
+    margin-bottom: 40px;
+    }
+    
+    .faq-superendividamento h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    }
+    
+    .faq-superendividamento p {
+    margin-bottom: 10px;
+    }
+    
+    .faq-superendividamento ul {
+    list-style: none;
+    padding-left: 0;
+    }
+    
+    .faq-superendividamento li {
+    margin-bottom: 10px;
+    }
+    
+    .faq-superendividamento li:before {
+    content: '\2022';
+    color: #333;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    }
+    
+    .faq-superendividamento .pergunta {
+    cursor: pointer;
+    font-weight: bold;
+    }
+    
+    .faq-superendividamento .resposta {
+    display: none;
+    }
+    
+    .faq-superendividamento .resposta-visivel {
+    display: block;
+    }  
