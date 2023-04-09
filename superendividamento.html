@@ -248,68 +248,57 @@
                                 </div>
                 </div>
                 <!--Service Detail Info End-->
+
+                <div id="formulario-endividamento">
+                    <h2>Formulário de Simulação de Redução de Endividamento</h2>
+                    <form>
+                      <label for="divida-total">Informe o valor total de suas dívidas em atraso:</label>
+                      <input type="number" id="divida-total" name="divida-total" required><br><br>
+                      
+                      <label for="renda-mensal">Informe sua renda mensal comprovada:</label>
+                      <input type="number" id="renda-mensal" name="renda-mensal" required><br><br>
+                      
+                      <label for="valor-despesas">Informe o valor total de suas despesas mensais pessoais e familiares:</label>
+                      <input type="number" id="valor-despesas" name="valor-despesas" required><br><br>
+                      
+                      <button type="button" onclick="simularReducaoEndividamento()">Simular</button>
+                    </form>
+                    
+                    <div id="resultado-simulacao"></div>
+                  </div>
+                  
+                  <script>
+                    function simularReducaoEndividamento() {
+                      const dividaTotal = Number(document.getElementById('divida-total').value);
+                      const rendaMensal = Number(document.getElementById('renda-mensal').value);
+                      const valorDespesas = Number(document.getElementById('valor-despesas').value);
+                      
+                      let custoAssessoriaJuridica = 197.00;
+                      if (rendaMensal <= 3 * 1100) {
+                        custoAssessoriaJuridica = 139.00;
+                      }
+                      
+                      const dividaDescontada = dividaTotal * 0.8;
+                      const parcelasMaximas = Math.floor(dividaDescontada / custoAssessoriaJuridica);
+                      const parcelaMaxima = Math.floor((rendaMensal - valorDespesas) * 0.3);
+                      
+                      let resultado = '';
+                      if (parcelaMaxima >= custoAssessoriaJuridica) {
+                        resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${parcelaMaxima}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes.`;
+                      } else {
+                        resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Procure um especialista para ajudá-lo a renegociar suas dívidas.';
+                      }
+                      
+                      document.getElementById('resultado-simulacao').textContent = resultado;
+                    }
+                  </script>
+                  
             </div>
         </div>
     </section>
     <!--Service Detail End-->
 
-    <div id="formulario-endividamento">
-        <h2>Formulário de Simulação de Redução de Endividamento</h2>
-        <form>
-          <label for="divida-total">Informe o valor total de suas dívidas em atraso:</label>
-          <input type="number" id="divida-total" name="divida-total" required><br><br>
-          
-          <label for="renda-mensal">Informe sua renda mensal bruta:</label>
-          <input type="number" id="renda-mensal" name="renda-mensal" required><br><br>
-          
-          <label for="parcelas-maximas">Informe o número máximo de parcelas que você pode pagar:</label>
-          <input type="number" id="parcelas-maximas" name="parcelas-maximas" required><br><br>
-          
-          <label for="renda-minima">Você recebe até 3 salários mínimos? </label>
-          <select id="renda-minima" name="renda-minima">
-            <option value="sim">Sim</option>
-            <option value="nao">Não</option>
-          </select><br><br>
-          
-          <button type="button" onclick="simularReducaoEndividamento()">Simular</button>
-        </form>
-        
-        <div id="resultado-simulacao"></div>
-      </div>
-      
-      <script>
-        function simularReducaoEndividamento() {
-          const dividaTotal = Number(document.getElementById('divida-total').value);
-          const rendaMensal = Number(document.getElementById('renda-mensal').value);
-          const parcelasMaximas = Number(document.getElementById('parcelas-maximas').value);
-          const rendaMinima = document.getElementById('renda-minima').value;
-          
-          let custoAssessoriaJuridica = 197.00;
-          if (rendaMinima == 'sim') {
-            custoAssessoriaJuridica = 139.00;
-          }
-          
-          const dividaDescontada = dividaTotal * 0.8;
-          const valorParcela = dividaDescontada / parcelasMaximas;
-          const rendaComprometida = (valorParcela + custoAssessoriaJuridica) / rendaMensal;
-          
-          let resultado = '';
-          if (rendaComprometida <= 0.3) {
-            resultado = 'Parabéns! Você tem um bom perfil de endividamento e pode se beneficiar da renegociação de dívidas.';
-          } else if (rendaComprometida > 0.3 && rendaComprometida <= 0.5) {
-            resultado = 'Seu perfil de endividamento é razoável, mas ainda é possível melhorá-lo. Procure um especialista para ajudá-lo a renegociar suas dívidas.';
-          } else {
-            resultado = 'Atenção! Seu perfil de endividamento indica uma situação de risco. Procure um especialista para ajudá-lo a renegociar suas dívidas o mais rápido possível.';
-          }
-          
-          const divResultado = document.getElementById('resultado-simulacao');
-          divResultado.innerHTML = '<p>O valor de suas dívidas com desconto é de R$ ' + dividaDescontada.toFixed(2) + '.</p>' +
-'<p>O valor máximo de cada parcela é de R$ ' + valorParcela.toFixed(2) + '.</p>' +
-'<p>O custo da assessoria jurídica é de R$ ' + custoAssessoriaJuridica.toFixed(2) + '.</p>' +
-'<p>A porcentagem de sua renda comprometida é de ' + ((valorParcela + custoAssessoriaJuridica) / rendaMensal * 100).toFixed(2) + '%.</p>' +
-'<p>' + resultado + '</p>';
-}
-</script>
+    
       
 
     <!--Get In Touch Start-->
