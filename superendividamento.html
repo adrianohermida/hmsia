@@ -251,21 +251,22 @@
 
                 <div id="formulario-endividamento">
                     <h2>Formulário de Simulação de Redução de Endividamento</h2>
-                    <form>
-                      <label for="divida-total">Informe o valor total de suas dívidas em atraso:</label>
-                      <input type="number" id="divida-total" name="divida-total" required><br><br>
+                    <div class="form-endividamento">
+                        <form>
+                          <label for="dividas">Valor total das dívidas em atraso:</label>
+                          <input type="number" id="dividas" name="dividas" required>
                       
-                      <label for="renda-mensal">Informe sua renda mensal comprovada:</label>
-                      <input type="number" id="renda-mensal" name="renda-mensal" required><br><br>
+                          <label for="renda">Renda mensal comprovada:</label>
+                          <input type="number" id="renda" name="renda" required>
                       
-                      <label for="valor-despesas">Informe o valor total de suas despesas mensais pessoais e familiares:</label>
-                      <input type="number" id="valor-despesas" name="valor-despesas" required><br><br>
+                          <label for="despesas-pessoais">Valor das despesas pessoais necessárias ao sustento da pessoa e de sua família:</label>
+                          <input type="number" id="despesas-pessoais" name="despesas-pessoais" required>
                       
-                      <button type="button" onclick="simularReducaoEndividamento()">Simular</button>
-                    </form>
-                    
-                    <div id="resultado-simulacao"></div>
-                  </div>
+                          <button type="submit">Simular</button>
+                        </form>
+                      
+                        <div id="resultado-simulacao"></div>
+                      </div>
                   
                   <script>
                     function simularReducaoEndividamento() {
