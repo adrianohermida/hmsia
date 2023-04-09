@@ -253,6 +253,59 @@
     </section>
     <!--Service Detail End-->
 
+    <div id="formulario-endividamento">
+        <h2>Formulário de Simulação de Redução de Endividamento</h2>
+        <form>
+          <label for="divida-total">Informe o valor total de suas dívidas em atraso:</label>
+          <input type="number" id="divida-total" name="divida-total" required><br><br>
+          
+          <label for="renda-mensal">Informe sua renda mensal bruta:</label>
+          <input type="number" id="renda-mensal" name="renda-mensal" required><br><br>
+          
+          <label for="parcelas-maximas">Informe o número máximo de parcelas que você pode pagar:</label>
+          <input type="number" id="parcelas-maximas" name="parcelas-maximas" required><br><br>
+          
+          <label for="renda-minima">Você recebe até 3 salários mínimos? </label>
+          <select id="renda-minima" name="renda-minima">
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+          </select><br><br>
+          
+          <button type="button" onclick="simularReducaoEndividamento()">Simular</button>
+        </form>
+        
+        <div id="resultado-simulacao"></div>
+      </div>
+      
+      <script>
+        function simularReducaoEndividamento() {
+          const dividaTotal = Number(document.getElementById('divida-total').value);
+          const rendaMensal = Number(document.getElementById('renda-mensal').value);
+          const parcelasMaximas = Number(document.getElementById('parcelas-maximas').value);
+          const rendaMinima = document.getElementById('renda-minima').value;
+          
+          let custoAssessoriaJuridica = 197.00;
+          if (rendaMinima == 'sim') {
+            custoAssessoriaJuridica = 139.00;
+          }
+          
+          const dividaDescontada = dividaTotal * 0.8;
+          const valorParcela = dividaDescontada / parcelasMaximas;
+          const rendaComprometida = (valorParcela + custoAssessoriaJuridica) / rendaMensal;
+          
+          let resultado = '';
+          if (rendaComprometida <= 0.3) {
+            resultado = 'Parabéns! Você tem um bom perfil de endividamento e pode se beneficiar da renegociação de dívidas.';
+          } else if (rendaComprometida > 0.3 && rendaComprometida <= 0.5) {
+            resultado = 'Seu perfil de endividamento é razoável, mas ainda é possível melhorá-lo. Procure um especialista para ajudá-lo a renegociar suas dívidas.';
+          } else {
+            resultado = 'Atenção! Seu perfil de endividamento indica uma situação de risco. Procure um especialista para ajudá-lo a renegociar suas dívidas o mais rápido possível.';
+          }
+          
+          const divResultado = document.getElementById('resultado-simulacao');
+         
+      
+
     <!--Get In Touch Start-->
     <section class="main-get-touch-in">
         <div class="container">
