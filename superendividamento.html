@@ -44,7 +44,7 @@
 
     <!-- Main Style CSS  -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-hzFJ7XmE3mI3VzfKJPm1t9J539toRlv/iBdVYsSQrqb12YYN7Epxq3ZvD0gX6IzN" crossorigin="anonymous">
 </head>
 <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/c80673d4-66ea-4f2a-8768-5efce308ab19-loader.js" ></script>
 
@@ -249,50 +249,90 @@
                 </div>
                 <!--Service Detail Info End-->
 
+                
+    <!--Get In Touch Start-->
+    <section class="main-get-touch-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="get-touch-title">
+                        <div class="small-title">
+                            <h2 class="h2-subtitle">Calcule o parcela mínima para renegociar seus débitos</h2>
+                        </div>
+                        <h2 class="h2-title">Simule seu plano de contas</h2>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="get-touch-form">
+   
+                        <div class="form-endividamento">
+                            <form>
+                              <div class="form-group">
+                                <label for="dividas">Valor total das dívidas em atraso:</label>
+                                <div class="input-group">
+                                  <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
+                                  <input type="number" id="dividas" name="dividas" required>
+                                </div>
+                              </div>
+                          
+                              <div class="form-group">
+                                <label for="renda">Renda mensal comprovada:</label>
+                                <div class="input-group">
+                                  <span class="input-group-icon"><i class="fas fa-money-bill-wave"></i></span>
+                                  <input type="number" id="renda" name="renda" required>
+                                </div>
+                              </div>
+                          
+                              <div class="form-group">
+                                <label for="despesas-pessoais">Valor das despesas pessoais necessárias ao sustento da pessoa e de sua família:</label>
+                                <div class="input-group">
+                                  <span class="input-group-icon"><i class="fas fa-wallet"></i></span>
+                                  <input type="number" id="despesas-pessoais" name="despesas-pessoais" required>
+                                </div>
+                              </div>
+                          
+                              <button type="submit">Simular</button>
+                            </form>
+                          
+                            <div id="resultado-simulacao"></div>
+                          </div>
+                          
+                      
+                      <script>
+                        function simularReducaoEndividamento() {
+                          const dividaTotal = Number(document.getElementById('divida-total').value);
+                          const rendaMensal = Number(document.getElementById('renda-mensal').value);
+                          const valorDespesas = Number(document.getElementById('valor-despesas').value);
+                          
+                          let custoAssessoriaJuridica = 197.00;
+                          if (rendaMensal <= 3 * 1100) {
+                            custoAssessoriaJuridica = 139.00;
+                          }
+                          
+                          const dividaDescontada = dividaTotal * 0.8;
+                          const parcelasMaximas = Math.floor(dividaDescontada / custoAssessoriaJuridica);
+                          const parcelaMaxima = Math.floor((rendaMensal - valorDespesas) * 0.3);
+                          
+                          let resultado = '';
+                          if (parcelaMaxima >= custoAssessoriaJuridica) {
+                            resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${parcelaMaxima}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes.`;
+                          } else {
+                            resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Procure um especialista para ajudá-lo a renegociar suas dívidas.';
+                          }
+                          
+                          document.getElementById('resultado-simulacao').textContent = resultado;
+                        }
+                      </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Get In Touch End-->
+
                 <div id="formulario-endividamento">
                     <h2>Formulário de Simulação de Redução de Endividamento</h2>
-                    <div class="form-endividamento">
-                        <form>
-                          <label for="dividas">Valor total das dívidas em atraso:</label>
-                          <input type="number" id="dividas" name="dividas" required>
-                      
-                          <label for="renda">Renda mensal comprovada:</label>
-                          <input type="number" id="renda" name="renda" required>
-                      
-                          <label for="despesas-pessoais">Valor das despesas pessoais necessárias ao sustento da pessoa e de sua família:</label>
-                          <input type="number" id="despesas-pessoais" name="despesas-pessoais" required>
-                      
-                          <button type="submit">Simular</button>
-                        </form>
-                      
-                        <div id="resultado-simulacao"></div>
-                      </div>
-                  
-                  <script>
-                    function simularReducaoEndividamento() {
-                      const dividaTotal = Number(document.getElementById('divida-total').value);
-                      const rendaMensal = Number(document.getElementById('renda-mensal').value);
-                      const valorDespesas = Number(document.getElementById('valor-despesas').value);
-                      
-                      let custoAssessoriaJuridica = 197.00;
-                      if (rendaMensal <= 3 * 1100) {
-                        custoAssessoriaJuridica = 139.00;
-                      }
-                      
-                      const dividaDescontada = dividaTotal * 0.8;
-                      const parcelasMaximas = Math.floor(dividaDescontada / custoAssessoriaJuridica);
-                      const parcelaMaxima = Math.floor((rendaMensal - valorDespesas) * 0.3);
-                      
-                      let resultado = '';
-                      if (parcelaMaxima >= custoAssessoriaJuridica) {
-                        resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${parcelaMaxima}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes.`;
-                      } else {
-                        resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Procure um especialista para ajudá-lo a renegociar suas dívidas.';
-                      }
-                      
-                      document.getElementById('resultado-simulacao').textContent = resultado;
-                    }
-                  </script>
+                 
                   
             </div>
         </div>
