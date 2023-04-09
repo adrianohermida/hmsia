@@ -303,7 +303,13 @@
           }
           
           const divResultado = document.getElementById('resultado-simulacao');
-         
+          divResultado.innerHTML = '<p>O valor de suas dívidas com desconto é de R$ ' + dividaDescontada.toFixed(2) + '.</p>' +
+'<p>O valor máximo de cada parcela é de R$ ' + valorParcela.toFixed(2) + '.</p>' +
+'<p>O custo da assessoria jurídica é de R$ ' + custoAssessoriaJuridica.toFixed(2) + '.</p>' +
+'<p>A porcentagem de sua renda comprometida é de ' + ((valorParcela + custoAssessoriaJuridica) / rendaMensal * 100).toFixed(2) + '%.</p>' +
+'<p>' + resultado + '</p>';
+}
+</script>
       
 
     <!--Get In Touch Start-->
