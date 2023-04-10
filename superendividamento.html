@@ -285,12 +285,14 @@ function simularPlanoContas() {
 
     const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
     const valorEconomizado = valorDisponivelParaPagar - valorParcelaMaxima;
-    
+
     if (valorEconomizado > 0) {
       const tempoMetadeParcelamento = Math.ceil((dividaTotal / valorParcelaMaxima) / 2);
       const valorNecessarioReduzir = valorEconomizado * tempoMetadeParcelamento;
 
       resultado += `\nRecomendamos que você reduza suas despesas pessoais em R$ ${valorNecessarioReduzir.toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
+    } else {
+      resultado += `\nInfelizmente, você não tem disponibilidade financeira para economizar e reduzir o tempo de parcelamento. Para conseguir aprovação do plano compulsório, recomendamos que você reduza suas despesas pessoais para conseguir arcar com parcela mínima de R$ ${(dividaTotal / 60).toFixed(2)}.`;
     }
   } else {
     resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
@@ -298,7 +300,6 @@ function simularPlanoContas() {
   
   document.getElementById('resultado-simulacao').textContent = resultado;
 }
-
   </script>
 </div>
 
