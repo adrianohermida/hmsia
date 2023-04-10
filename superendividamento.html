@@ -282,6 +282,7 @@
       }
   
       let resultado = '';
+  
       if (valorParcelaMaxima > 0) {
         resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
   
@@ -312,6 +313,8 @@
       document.getElementById('resultado-simulacao').textContent = resultado;
     }
   </script>
+  
+    
 </div>
 
 <!--Formulário de endividamento-->
