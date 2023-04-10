@@ -217,43 +217,36 @@
                         <div class="service-sidebar-line"></div>
                     </div>
 <!--Formulário de endividamento-->
-<style>
-  .form-endividamento-left {
-    text-align: left;
-  }
-</style>
-
-<div class="form-endividamento form-endividamento-left">
+<div class="form-endividamento">
   <form>
     <div class="form-group">
-      <label for="dividas">Valor total das dívidas em atraso:</label>
+      <label for="divida-total">Valor total das dívidas em atraso:</label>
       <div class="input-group">
         <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
-        <input type="number" id="dividas" name="dividas" required>
+        <input type="number" id="divida-total" name="divida-total" required>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="renda">Renda mensal comprovada:</label>
+      <label for="renda-mensal">Renda mensal comprovada:</label>
       <div class="input-group">
         <span class="input-group-icon"><i class="fas fa-money-bill-wave"></i></span>
-        <input type="number" id="renda" name="renda" required>
+        <input type="number" id="renda-mensal" name="renda-mensal" required>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="despesas-pessoais">Valor das despesas pessoais necessárias ao sustento da pessoa e de sua família:</label>
+      <label for="valor-despesas">Valor das despesas pessoais necessárias ao sustento da pessoa e de sua família:</label>
       <div class="input-group">
         <span class="input-group-icon"><i class="fas fa-wallet"></i></span>
-        <input type="number" id="despesas-pessoais" name="despesas-pessoais" required>
+        <input type="number" id="valor-despesas" name="valor-despesas" required>
       </div>
     </div>
 
-    <button type="submit">Simular</button>
+    <button type="button" onclick="simularPlanoContas()">Simular</button>
   </form>
 
   <div id="resultado-simulacao"></div>
-</div>
 
   <script>
     function simularPlanoContas() {
