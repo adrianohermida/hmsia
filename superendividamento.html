@@ -305,8 +305,9 @@
           }
   
           resultado += `\nCom a redução das despesas, o valor mínimo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
-        }
-      } else {
+}
+      } // adicionar chave de fechamento aqui
+      else {
         resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
       }
   
