@@ -216,7 +216,8 @@
                         <h2 class="h2-title">Simulação da parcela mínima do plano de contas</h2>
                         <div class="service-sidebar-line"></div>
                     </div>
-<!--Formulário de endividamento-->
+
+                    <!--Formulário de endividamento-->
 <div class="form-endividamento">
   <br>
   <p>A pessoa superendividada poderá pedir ao Judiciário que seja instaurado um processo para revisão dos contratos e apresentará um plano de pagamento com prazo máximo de cinco anos. Se não houver acordo, o juiz poderá determinar um plano judicial obrigatório para o consumidor e seus devedores, estabelecendo prazos, valores e formas de pagamento, respeitando-se o mínimo para o consumidor conseguir sobreviver.</p>
@@ -231,7 +232,6 @@
         <input type="number" id="divida-total" name="divida-total" required>
       </div>
     </div>
-
     <div class="form-group">
       <label for="renda-mensal">Renda mensal comprovada:</label>
       <div class="input-group">
@@ -239,7 +239,7 @@
         <input type="number" id="renda-mensal" name="renda-mensal" required>
       </div>
     </div>
-
+    
     <div class="form-group">
       <label for="valor-despesas">Valor das despesas necessárias ao seu sustento e de sua família:</label>
       <div class="input-group">
@@ -247,62 +247,84 @@
         <input type="number" id="valor-despesas" name="valor-despesas" required>
       </div>
     </div>
-
+    
     <button type="button" onclick="simularPlanoContas()">Simular</button>
   </form>
-
   <div id="resultado-simulacao"></div>
-  <div id="parcelas-simulacao"></div>
-
+  <div id="parcelas-simulacao"></div>    
 
   <script>
     const MAX_PARCELAS = 60;
-  
+
     async function simularPlanoContas() {
       const dividaTotal = Number(document.getElementById('divida-total').value);
       const rendaMensal = Number(document.getElementById('renda-mensal').value);
       const valorDespesas = Number(document.getElementById('valor-despesas').value);
-  
+
       if (!validarInput(dividaTotal) || !validarInput(rendaMensal) || !validarInput(valorDespesas)) {
         alert('Insira valores válidos em todos os campos.');
         return;
       }
-  
+
       const valorMinimoExistencial = rendaMensal * 0.3;
       const valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
-  
-      const valorParcelaMaxima = calcularValorParcelaMaxima(dividaTotal, valorMaximoDisponivel);
-  
-      let resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${MAX_PARCELAS} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
-  
-      const valorDisponivelParaPagar = rendaMensal - valorDespesas - valorMinimoExistencial;
-  
-      if (valorDisponivelParaPagar < valorParcelaMaxima) {
-        const valorNecessarioReduzir = calcularValorNecessarioReduzir(valorDespesas, valorLimiteDespesas, valorParcelaMaxima);
-        const tempoMetadeParcelamento = calcularTempoMetadeParcelamento(dividaTotal, valorParcelaMaxima);
-  
-        if (valorNecessarioReduzir > 0) {
-          const reducaoDespesas = `R$ ${valorNecessarioReduzir.toFixed(2)}`;
-          resultado += `\nRecomendamos que você reduza suas despesas pessoais para no máximo ${reducaoDespesas}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
-        } else {
-          const valorLimiteDespesas = rendaMensal * 0.3 - valorMinimoExistencial;
-          resultado += `\nRecomendamos que você reduza suas despesas pessoais para no máximo R$ ${valorLimiteDespesas.toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
-        }
-  
-        mostrarResultado(resultado);
-      }
-    }
-  
-    function validarInput(valor) {
-      return !isNaN(valor) && valor > 0;
-    }
-  
-</script>  
-             
-    
-</div>
 
+      const valorParcelaMaxima = calcularValorParcelaMaxima(dividaTotal, valorMaximoDisponivel);
+
+      let resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${MAX_PARCELAS} vezes. Entre em contato conosco para saber como podemos te ajudar.`;      if (valorDisponivelParaPagar < valorParcelaMaxima) {
+    const valorNecessarioReduzir = calcularValorNecessarioReduzir(valorDespesas, valorLimiteDespesas, valorParcelaMaxima);
+    const tempoMetadeParcelamento = calcularTempoMetadeParcelamento(dividaTotal, valorParcelaMaxima);
+
+    if (valorNecessarioReduzir > 0) {
+      const reducaoDespesas = `R$ ${valorNecessarioReduzir.toFixed(2)}`;
+      resultado += `\nRecomendamos que você reduza suas despesas pessoais para no máximo ${reducaoDespesas}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
+    } else {
+      const valorLimiteDespesas = rendaMensal * 0.3 - valorMinimoExistencial;
+      resultado += `\nRecomendamos que você reduza suas despesas pessoais para no máximo R$ ${valorLimiteDespesas.toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
+    }
+
+    mostrarResultado(resultado);
+  } else {
+    mostrarResultado(resultado);
+  }
+}
+
+function validarInput(valor) {
+  return !isNaN(valor) && valor > 0;
+}
+
+function calcularValorParcelaMaxima(dividaTotal, valorMaximoDisponivel) {
+  return valorMaximoDisponivel > 0 ? dividaTotal / MAX_PARCELAS : dividaTotal / MAX_PARCELAS + valorMaximoDisponivel / MAX_PARCELAS;
+}
+
+function calcularValorNecessarioReduzir(valorDespesas, valorLimiteDespesas, valorParcelaMaxima) {
+  return (valorParcelaMaxima - valorDespesas) * MAX_PARCELAS > 0 ? (valorParcelaMaxima - valorDespesas) * MAX_PARCELAS - valorLimiteDespesas * MAX_PARCELAS : 0;
+}
+
+function calcularTempoMetadeParcelamento(dividaTotal, valorParcelaMaxima) {
+  const metadeDividaTotal = dividaTotal / 2;
+  return metadeDividaTotal % valorParcelaMaxima === 0 ? metadeDividaTotal / valorParcelaMaxima : Math.floor(metadeDividaTotal / valorParcelaMaxima) + 1;
+}
+
+function mostrarResultado(resultado) {
+  const divResultado = document.getElementById('resultado-simulacao');
+  divResultado.textContent = resultado;
+}
+
+function mostrarParcelas(parcelas) {
+  const divParcelas = document.getElementById('parcelas-simulacao');
+  divParcelas.innerHTML = '';
+
+  parcelas.forEach(parcela => {
+    const p = document.createElement('p');
+    p.textContent = `Parcela ${parcela.numParcela}: R$ ${parcela.valor.toFixed(2)}`;
+    divParcelas.appendChild(p);
+  });
+}
+</script>
+</div>
 <!--Formulário de endividamento-->
+         
 
                 </div>
               </div>
