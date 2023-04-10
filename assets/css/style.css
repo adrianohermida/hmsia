@@ -4814,3 +4814,7 @@ a ação de superendividamento */
     .faq-superendividamento .resposta-visivel {
     display: block;
     }  
+    img {
+        max-width: 100%;
+      }
+      
