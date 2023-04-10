@@ -252,61 +252,50 @@
   <div id="resultado-simulacao"></div>
 
   <script>
-function simularPlanoContas() {
-  // Obtenção dos valores do formulário
-  const dividaTotal = Number(document.getElementById('divida-total').value);
-  const rendaMensal = Number(document.getElementById('renda-mensal').value);
-  const valorDespesas = Number(document.getElementById('valor-despesas').value);
+  function simularPlanoContas() {
+    const dividaTotal = Number(document.getElementById('divida-total').value);
+    const rendaMensal = Number(document.getElementById('renda-mensal').value);
+    const valorDespesas = Number(document.getElementById('valor-despesas').value);
 
-  // Cálculo do valor mínimo existencial
-  let valorMinimoExistencial = rendaMensal * 0.3;
+    let valorMinimoExistencial = rendaMensal * 0.3;
 
-  // Cálculo do valor máximo disponível para pagar dívidas
-  let valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
+    let valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
 
-  // Enquanto o valor máximo disponível for negativo, reduz o valor mínimo existencial até que se torne positivo
-  while (valorMaximoDisponivel < 0) {
-    valorMinimoExistencial -= 10;
-    valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
-  }
-
-  // Cálculo do valor máximo da parcela e número de parcelas possíveis
-  let valorParcelaMaxima = 0;
-  let parcelasMaximas = 0;
-
-  for (let i = 60; i >= 1; i--) {
-    const valorParcela = (dividaTotal / i);
-
-    if (valorParcela <= valorMaximoDisponivel) {
-      valorParcelaMaxima = valorParcela;
-      parcelasMaximas = i;
-      break;
+    while (valorMaximoDisponivel < 0) {
+      valorMinimoExistencial -= 10;
+      valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
     }
-  }
 
-  // Montagem do resultado final
-  let resultado = '';
-  if (valorParcelaMaxima > 0) {
-    resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
+    let valorParcelaMaxima = 0;
+    let parcelasMaximas = 0;
 
-    // Cálculo do valor economizado caso o devedor reduza suas despesas
-    const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
-    const valorEconomizado = valorDisponivelParaPagar - valorParcelaMaxima;
-    
-    // Adição da recomendação para reduzir despesas caso haja economia possível
-    if (valorEconomizado > 0) {
-      resultado += `\nRecomendamos que você reduza suas despesas pessoais para economizar mais R$ ${valorEconomizado.toFixed(2)}, o que possibilitará o pagamento mais rápido das dívidas e a saída do superendividamento.`;
+    for (let i = 60; i >= 1; i--) {
+      const valorParcela = (dividaTotal / i);
+
+      if (valorParcela <= valorMaximoDisponivel) {
+        valorParcelaMaxima = valorParcela;
+        parcelasMaximas = i;
+        break;
+      }
     }
-  } else {
-    resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
-  }
-  
-  // Atualização do elemento HTML com o resultado
-  document.getElementById('resultado-simulacao').textContent = resultado;
-}
 
-  </script>
-  
+    let resultado = '';
+    if (valorParcelaMaxima > 0) {
+      resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
+      const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
+      const valorEconomizado = valorDisponivelParaPagar - valorParcelaMaxima;
+
+      if (valorEconomizado > 0) {
+        resultado += `\nRecomendamos que você reduza suas despesas pessoais para economizar mais R$ ${valorEconomizado.toFixed(2)}, o que possibilitará o pagamento mais rápido das dívidas e a saída do superendividamento.`;
+      }
+    } else {
+      resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
+    }
+
+    document.getElementById('resultado-simulacao').textContent = resultado;
+  }
+</script>
+
 
 
                 </div>
@@ -317,7 +306,7 @@ function simularPlanoContas() {
                 <div class="col-lg-8">
                   <div class="service-detail-content">
                       <div class="service-detail-img-1 wow fadeInUp animated" data-wow-delay=".4s">
-                          <img src="assets/images/service-detail-img-1.jpg" alt="service detail">
+                          <img src="assets/images/service-detail-img-1.jpg" alt="service detail" height="696">
                       </div>
                       <h3 class="h2-title">Para que serve esta ação</h3>
                       <p>O superendividamento é uma situação na qual uma pessoa física ou jurídica não consegue mais pagar suas dívidas devido à sua condição financeira atual. Essa é uma realidade que pode afetar qualquer um, independentemente de sua renda ou posição social.</p>
