@@ -258,135 +258,54 @@
       const dividaTotal = Number(document.getElementById('divida-total').value);
       const rendaMensal = Number(document.getElementById('renda-mensal').value);
       const valorDespesas = Number(document.getElementById('valor-despesas').value);
-
-      // Define o valor mínimo existencial a ser reservado para o devedor
+    
       let valorMinimoExistencial = rendaMensal * 0.3;
-
-      // Calcula o valor máximo disponível para pagamento das dívidas
       let valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
-
-      // Enquanto o valor máximo disponível for negativo, reduz o valor mínimo existencial em R$10
+    
       while (valorMaximoDisponivel < 0) {
         valorMinimoExistencial -= 10;
         valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
       }
-
-      // Define as variáveis para armazenar o valor máximo da parcela e a quantidade máxima de parcelas possíveis
+    
       let valorParcelaMaxima = 0;
       let parcelasMaximas = 0;
-
-      // Itera sobre as possibilidades de parcelamento, buscando o maior valor de parcela que caiba no valor máximo disponível
+    
       for (let i = 60; i >= 1; i--) {
         const valorParcela = dividaTotal / i;
-
+    
         if (valorParcela <= valorMaximoDisponivel) {
           valorParcelaMaxima = valorParcela;
           parcelasMaximas = i;
           break;
         }
       }
-
-      // Define a mensagem de resultado inicial
+    
       let resultado = '';
-
-      // Verifica se é possível pagar as dívidas
+    
       if (valorParcelaMaxima > 0) {
+    resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
 
-        // Define a mensagem de resultado com o valor máximo da parcela e quantidade máxima de parcelas possíveis
-        resultado =  O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.;
+    const valorDisponivelParaPagar = rendaMensal - valorDespesas - valorMinimoExistencial;
+    let valorNecessarioReduzir = 0;
+    let tempoMetadeParcelamento = 0;
 
-// Calcula o valor disponível para pagar as dívidas, levando em consideração a reserva destinada ao pagamento das dívidas e o valor das despesas
-const valorDisponivelParaPagar = rendaMensal - valorDespesas - valorMinimoExistencial;
+    if (valorDisponivelParaPagar < valorParcelaMaxima) {
+      const valorReducaoDespesas = (valorParcelaMaxima - valorDisponivelParaPagar) * 2;
+      const valorLimiteDespesas = rendaMensal * 0.3 - valorMinimoExistencial;
 
-// Verifica se o valor disponível é menor que o valor mínimo necessário para o pagamento da parcela recomendada
-if (valorDisponivelParaPagar < valorParcelaMaxima) {
-// Calcula o valor necessário de redução de despesas para atingir o valor mínimo necessário para o pagamento da parcela recomendada
-const valorReducaoDespesas = (valorParcelaMaxima - valorDisponivelParaPagar) * 2;
-// Calcula o valor máximo que as despesas podem ser reduzidas, levando em consideração a reserva destinada ao pagamento das dívidas
-const valorLimiteDespesas = rendaMensal * 0.3 - valorMinimoExistencial;
-
-// Verifica se o valor necessário de redução de despesas é menor ou igual ao valor máximo que as despesas podem ser reduzidas
-if (valorReducaoDespesas <= (valorDespesas - valorLimiteDespesas)) {
-// Atualiza o valor necessário de redução de despesas e o tempo necessário para pagar a dívida pela metade
-valorNecessarioReduzir += valorReducaoDespesas;
-tempoMetadeParcelamento = Math.ceil((dividaTotal / valorParcelaMaxima) / 2);
-// Atualiza a mensagem de resultado com a recomendação de redução de despesas
-resultado += \nRecomendamos que você reduza suas despesas pessoais em R$ ${valorReducaoDespesas.toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.;
-} else {
-// Atualiza o valor necessário de redução de despesas e o tempo necessário para pagar a dívida pela metade
-valorNecessarioReduzir += valorDespesas - valorLimiteDespesas;
-tempoMetadeParcelamento = Math.ceil((dividaTotal / valorParcelaMaxima) / 2);
-// Atualiza a mensagem de resultado com a recomendação de redução de despesas
-resultado += \nRecomendamos que você reduza suas despesas pessoais em R$ ${(valorDespesas - valorLimiteDespesas).toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.;
-}
-}
-// Calcula o tempo necessário para pagar a dívida sem a necessidade de redução de despesas
-let tempoNecessarioPagarDivida = Math.ceil(dividaTotal / valorParcelaMinima);
-      resultado += `\nSe você pagar a parcela mínima de R$ ${valorParcelaMinima.toFixed(2)}, levará aproximadamente ${tempoNecessarioPagarDivida} meses para pagar sua dívida.`;
-
-      // Verifica se é possível reduzir as despesas para pagar a parcela mínima
-      const valorDisponivelParaPagar = rendaMensal - valorDespesas - valorMinimoExistencial;
-      let valorNecessarioReduzir = 0;
-      let tempoMetadeParcelamento = 0;
-
-      if (valorDisponivelParaPagar < valorParcelaMinima) {
-        // Calcula o valor necessário de redução de despesas e tempo de parcelamento
-        const valorReducaoDespesas = (valorParcelaMinima - valorDisponivelParaPagar) * 2;
-        const valorLimiteDespesas = rendaMensal * 0.3;
-
-        if (valorReducaoDespesas <= (valorDespesas - valorLimiteDespesas)) {
-          valorNecessarioReduzir += valorReducaoDespesas;
-          tempoMetadeParcelamento = Math.ceil((dividaTotal / valorParcelaMinima) / 2);
-          resultado += `\nRecomendamos que você reduza suas despesas pessoais em R$ ${valorReducaoDespesas.toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
-        } else {
-          valorNecessarioReduzir += valorDespesas - valorLimiteDespesas;
-          tempoMetadeParcelamento = Math.ceil((dividaTotal / valorParcelaMinima) / 2);
-          resultado += `\nRecomendamos que você reduza suas despesas pessoais em R$ ${(valorDespesas - valorLimiteDespesas).toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
-        }
+      if (valorReducaoDespesas <= (valorDespesas - valorLimiteDespesas)) {
+        valorNecessarioReduzir += valorReducaoDespesas;
+        tempoMetadeParcelamento = Math.ceil((dividaTotal / valorParcelaMaxima) / 2);
+        resultado += `\nRecomendamos que você reduza suas despesas pessoais em R$ ${valorReducaoDespesas.toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
+      } else {
+        valorNecessarioReduzir += valorDespesas - valorLimiteDespesas;
+        tempoMetadeParcelamento = Math.ceil((dividaTotal / valorParcelaMaxima) / 2);
+        resultado += `\nRecomendamos que você reduza suas despesas pessoais em R$ ${(valorDespesas - valorLimiteDespesas).toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
       }
-
-      // Define a mensagem de sugestão de parcelamento com base no valor disponível para pagamento
-      if (valorDisponivelParaPagar >= valorParcelaMinima && valorDisponivelParaPagar < valorParcelaMaxima) {
-        const sugestaoParcela = Math.ceil(dividaTotal / valorDisponivelParaPagar);
-        resultado += `\nSugerimos que você pague uma parcela de R$ ${valorDisponivelParaPagar.toFixed(2)} para pagar sua dívida em ${sugestaoParcela} vezes.`;
-      } else if (valorDisponivelParaPagar >= valorParcelaMaxima) {
-        resultado += `\nVocê pode parcelar suas dívidas em até ${parcelasMaximas} vezes, com parcelas de R$ ${valorParcelaMaxima.toFixed(2)}. Entre em contato conosco para saber como podemos te ajudar.`;
-// Define a mensagem de sugestão de parcelamento com base no valor disponível para pagamento
-if (valorDisponivelParaPagar >= valorParcelaMinima && valorDisponivelParaPagar < valorParcelaMaxima) {
-        const sugestaoParcela = Math.ceil(dividaTotal / valorDisponivelParaPagar);
-        resultado += `\nSugerimos que você pague uma parcela de R$ ${valorDisponivelParaPagar.toFixed(2)} para pagar sua dívida em ${sugestaoParcela} vezes.`;
-      } else if (valorDisponivelParaPagar >= valorParcelaMaxima) {
-        resultado += `\nVocê pode parcelar suas dívidas em até ${parcelasMaximas} vezes, com parcelas de R$ ${valorParcelaMaxima.toFixed(2)}.`;
-
-const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
-
-if (valorDisponivelParaPagar < rendaMensal * 0.3) {
-  const valorReducaoDespesas = valorDespesas * 0.3 - valorDisponivelParaPagar;
-  resultado += `\nRecomendamos que você reduza suas despesas pessoais em R$ ${valorReducaoDespesas.toFixed(2)}, o que possibilitará o pagamento das dívidas.`;
-
-  valorMaximoDisponivel = rendaMensal * 0.3 - valorMinimoExistencial;
-
-  for (let i = 60; i >= 1; i--) {
-    const valorParcela = (dividaTotal / i);
-
-    if (valorParcela <= valorMaximoDisponivel) {
-      valorParcelaMaxima = valorParcela;
-      parcelasMaximas = i;
-
-      const mesesParaQuitar = Math.ceil(dividaTotal / valorParcelaMaxima);
-      resultado += `\nCom a redução das despesas, você pode quitar a dívida em ${mesesParaQuitar} meses, com parcelas de R$ ${valorParcelaMaxima.toFixed(2)}. Entre em contato conosco para saber como podemos te ajudar.`;
-
-      break;
     }
-  }
 }
-} else {
-resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
-}
-
-document.getElementById('resultado-simulacao').textContent = resultado;
-}
-</script> 
+    </script>
+            
     
 </div>
 
