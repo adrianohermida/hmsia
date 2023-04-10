@@ -181,7 +181,7 @@
                                       <img src="assets/images/pdf.png" alt="pdf">
                                   </div>
                                   <div class="service-download-content">
-                                      <pNotificação de tentativa de negociação com credores</p>
+                                    <p>Notificação de tentativa de negociação com credores</p>
                                       <span>DOWNLOAD (48KB)</span>
                                   </div>
                               </div>
@@ -211,6 +211,73 @@
                           </div>
                       </div>
                   </div>
+                  <div class="service-sidebar-download-box">
+                    <div class="service-sidebar-title">
+                        <h2 class="h2-title">Simule a parcela mínima do seu plano de contas</h2>
+                        <div class="service-sidebar-line"></div>
+                    </div>
+<!--Formulário de endividamento-->           
+<div class="form-endividamento">
+  <form>
+    <div class="form-group">
+      <label for="dividas">Valor total das dívidas em atraso:</label>
+      <div class="input-group">
+        <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
+        <input type="number" id="dividas" name="dividas" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="renda">Renda mensal comprovada:</label>
+      <div class="input-group">
+        <span class="input-group-icon"><i class="fas fa-money-bill-wave"></i></span>
+        <input type="number" id="renda" name="renda" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="despesas-pessoais">Valor das despesas pessoais necessárias ao sustento da pessoa e de sua família:</label>
+      <div class="input-group">
+        <span class="input-group-icon"><i class="fas fa-wallet"></i></span>
+        <input type="number" id="despesas-pessoais" name="despesas-pessoais" required>
+      </div>
+    </div>
+
+    <button type="submit">Simular</button>
+  </form>
+
+  <div id="resultado-simulacao"></div>
+</div>
+
+
+<script>
+function simularReducaoEndividamento() {
+const dividaTotal = Number(document.getElementById('divida-total').value);
+const rendaMensal = Number(document.getElementById('renda-mensal').value);
+const valorDespesas = Number(document.getElementById('valor-despesas').value);
+
+let custoAssessoriaJuridica = 197.00;
+if (rendaMensal <= 3 * 1100) {
+  custoAssessoriaJuridica = 139.00;
+}
+
+const dividaDescontada = dividaTotal * 0.8;
+const parcelasMaximas = Math.floor(dividaDescontada / custoAssessoriaJuridica);
+const parcelaMaxima = Math.floor((rendaMensal - valorDespesas) * 0.3);
+
+let resultado = '';
+if (parcelaMaxima >= custoAssessoriaJuridica) {
+  resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${parcelaMaxima}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes.`;
+} else {
+  resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Procure um especialista para ajudá-lo a renegociar suas dívidas.';
+}
+
+document.getElementById('resultado-simulacao').textContent = resultado;
+}
+</script>
+
+<!--Formulário de endividamento-->
+                </div>
               </div>
               <!--Sidebar End-->
 
