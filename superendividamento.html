@@ -276,7 +276,7 @@
       const valorDisponivelParaPagar = rendaMensal - valorDespesas - valorMinimoExistencial;
   
       if (valorDisponivelParaPagar < valorParcelaMaxima) {
-        const valorNecessarioReduzir = calcularValorNecessarioReduzir(valorDisponivelParaPagar, valorDespesas, valorMinimoExistencial, valorParcelaMaxima);
+        const valorNecessarioReduzir = calcularValorNecessarioReduzir(valorDespesas, valorLimiteDespesas, valorParcelaMaxima);
         const tempoMetadeParcelamento = calcularTempoMetadeParcelamento(dividaTotal, valorParcelaMaxima);
   
         if (valorNecessarioReduzir > 0) {
