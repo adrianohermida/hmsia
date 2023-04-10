@@ -271,7 +271,8 @@
 
       const valorParcelaMaxima = calcularValorParcelaMaxima(dividaTotal, valorMaximoDisponivel);
 
-      let resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${MAX_PARCELAS} vezes. Entre em contato conosco para saber como podemos te ajudar.`;      if (valorDisponivelParaPagar < valorParcelaMaxima) {
+      let resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${MAX_PARCELAS} vezes. Entre em contato conosco para saber como podemos te ajudar.</div>`;
+    if (valorMaximoDisponivel < valorParcelaMaxima) {
     const valorNecessarioReduzir = calcularValorNecessarioReduzir(valorDespesas, valorLimiteDespesas, valorParcelaMaxima);
     const tempoMetadeParcelamento = calcularTempoMetadeParcelamento(dividaTotal, valorParcelaMaxima);
 
