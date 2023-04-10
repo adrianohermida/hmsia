@@ -226,7 +226,7 @@
       <label for="divida-total">Valor total das dívidas em atraso:</label>
       <div class="input-group">
         <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
-        <input type="number" id="divida-total" name="divida-total" required>
+        <input type="number" id="divida-total" name="divida-total" value="60000" required>
       </div>
     </div>
 
@@ -234,7 +234,7 @@
       <label for="renda-mensal">Renda mensal comprovada:</label>
       <div class="input-group">
         <span class="input-group-icon"><i class="fas fa-money-bill-wave"></i></span>
-        <input type="number" id="renda-mensal" name="renda-mensal" required>
+        <input type="number" id="renda-mensal" name="renda-mensal" value="5000" required>
       </div>
     </div>
 
@@ -242,7 +242,7 @@
       <label for="valor-despesas">Valor das despesas necessárias ao seu sustento e de sua família:</label>
       <div class="input-group">
         <span class="input-group-icon"><i class="fas fa-wallet"></i></span>
-        <input type="number" id="valor-despesas" name="valor-despesas" required>
+        <input type="number" id="valor-despesas" name="valor-despesas" value="1500" required>
       </div>
     </div>
 
@@ -252,40 +252,62 @@
   <div id="resultado-simulacao"></div>
 
   <script>
-    function simularPlanoContas() {
-      const dividaTotal = Number(document.getElementById('divida-total').value);
-      const rendaMensal = Number(document.getElementById('renda-mensal').value);
-      const valorDespesas = Number(document.getElementById('valor-despesas').value);
+function simularPlanoContas() {
+  // Obtenção dos valores do formulário
+  const dividaTotal = Number(document.getElementById('divida-total').value);
+  const rendaMensal = Number(document.getElementById('renda-mensal').value);
+  const valorDespesas = Number(document.getElementById('valor-despesas').value);
 
-      const valorMinimoExistencial = rendaMensal * 0.3;
+  // Cálculo do valor mínimo existencial
+  let valorMinimoExistencial = rendaMensal * 0.3;
 
-      let valorParcelaMaxima = 0;
-      let parcelasMaximas = 0;
+  // Cálculo do valor máximo disponível para pagar dívidas
+  let valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
 
-      for (let i = 60; i >= 1; i--) {
-        const valorParcela = (dividaTotal / i);
-        const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
-        
-        if (valorParcela <= valorDisponivelParaPagar) {
-          valorParcelaMaxima = valorParcela;
-          parcelasMaximas = i;
-          break;
-        }
-      }
+  // Enquanto o valor máximo disponível for negativo, reduz o valor mínimo existencial até que se torne positivo
+  while (valorMaximoDisponivel < 0) {
+    valorMinimoExistencial -= 10;
+    valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
+  }
 
-      let resultado = '';
-      if (valorParcelaMaxima > 0) {
-        resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
-      } else {
-        resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
-      }
-      
-      document.getElementById('resultado-simulacao').textContent = resultado;
+  // Cálculo do valor máximo da parcela e número de parcelas possíveis
+  let valorParcelaMaxima = 0;
+  let parcelasMaximas = 0;
+
+  for (let i = 60; i >= 1; i--) {
+    const valorParcela = (dividaTotal / i);
+
+    if (valorParcela <= valorMaximoDisponivel) {
+      valorParcelaMaxima = valorParcela;
+      parcelasMaximas = i;
+      break;
     }
-  </script>
-</div>
+  }
 
-<!--Formulário de endividamento-->
+  // Montagem do resultado final
+  let resultado = '';
+  if (valorParcelaMaxima > 0) {
+    resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
+
+    // Cálculo do valor economizado caso o devedor reduza suas despesas
+    const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
+    const valorEconomizado = valorDisponivelParaPagar - valorParcelaMaxima;
+    
+    // Adição da recomendação para reduzir despesas caso haja economia possível
+    if (valorEconomizado > 0) {
+      resultado += `\nRecomendamos que você reduza suas despesas pessoais para economizar mais R$ ${valorEconomizado.toFixed(2)}, o que possibilitará o pagamento mais rápido das dívidas e a saída do superendividamento.`;
+    }
+  } else {
+    resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
+  }
+  
+  // Atualização do elemento HTML com o resultado
+  document.getElementById('resultado-simulacao').textContent = resultado;
+}
+
+  </script>
+  
+
 
                 </div>
               </div>
