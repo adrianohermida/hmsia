@@ -254,58 +254,63 @@
   <div id="resultado-simulacao"></div>
 
   <script>
-function simularPlanoContas() {
-  const dividaTotal = Number(document.getElementById('divida-total').value);
-  const rendaMensal = Number(document.getElementById('renda-mensal').value);
-  const valorDespesas = Number(document.getElementById('valor-despesas').value);
-
-  let valorMinimoExistencial = rendaMensal * 0.3;
-
-  let valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
-
-  while (valorMaximoDisponivel < 0) {
-    valorMinimoExistencial -= 10;
-    valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
-  }
-
-  let valorParcelaMaxima = 0;
-  let parcelasMaximas = 0;
-
-  for (let i = 60; i >= 1; i--) {
-    const valorParcela = (dividaTotal / i);
-
-    if (valorParcela <= valorMaximoDisponivel) {
-      valorParcelaMaxima = valorParcela;
-      parcelasMaximas = i;
-      break;
-    }
-  }
-
-  let resultado = '';
-  if (valorParcelaMaxima > 0) {
-    resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
-
-    const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
-    let valorNecessarioReduzir = 0;
-    let tempoMetadeParcelamento = 0;
-
-    if (valorDisponivelParaPagar < valorParcelaMaxima) {
-      valorNecessarioReduzir = valorParcelaMaxima - valorDisponivelParaPagar;
-      tempoMetadeParcelamento = Math.ceil((dividaTotal / valorDisponivelParaPagar) / 2);
-
-      resultado += `\nRecomendamos que você reduza suas despesas pessoais em R$ ${valorNecessarioReduzir.toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
-    } else {
-      tempoMetadeParcelamento = Math.ceil((dividaTotal / valorParcelaMaxima) / 2);
-      valorNecessarioReduzir = (valorDisponivelParaPagar - valorParcelaMaxima) * tempoMetadeParcelamento;
-
-      resultado += `\nRecomendamos que você reduza suas despesas pessoais em pelo menos R$ ${valorNecessarioReduzir.toFixed(2)}, o que possibilitará o pagamento das dívidas em até ${tempoMetadeParcelamento} vezes. Isso reduzirá em pelo menos metade o tempo do parcelamento e ajudará a sair do superendividamento mais rapidamente.`;
-    }
-  } else {
-    resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
-  }
+    function simularPlanoContas() {
+      const dividaTotal = Number(document.getElementById('divida-total').value);
+      const rendaMensal = Number(document.getElementById('renda-mensal').value);
+      const valorDespesas = Number(document.getElementById('valor-despesas').value);
   
-  document.getElementById('resultado-simulacao').
-}
+      let valorMinimoExistencial = rendaMensal * 0.3;
+  
+      let valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
+  
+      while (valorMaximoDisponivel < 0) {
+        valorMinimoExistencial -= 10;
+        valorMaximoDisponivel = rendaMensal - valorDespesas - valorMinimoExistencial;
+      }
+  
+      let valorParcelaMaxima = 0;
+      let parcelasMaximas = 0;
+  
+      for (let i = 60; i >= 1; i--) {
+        const valorParcela = (dividaTotal / i);
+  
+        if (valorParcela <= valorMaximoDisponivel) {
+          valorParcelaMaxima = valorParcela;
+          parcelasMaximas = i;
+          break;
+        }
+      }
+  
+      let resultado = '';
+      if (valorParcelaMaxima > 0) {
+        resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
+  
+        const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
+  
+        if (valorDisponivelParaPagar < rendaMensal * 0.3) {
+          const valorReducaoDespesas = valorDespesas * 0.3 - valorDisponivelParaPagar;
+          resultado += `\nRecomendamos que você reduza suas despesas pessoais em R$ ${valorReducaoDespesas.toFixed(2)}, o que possibilitará o pagamento das dívidas.`;
+  
+          valorMaximoDisponivel = rendaMensal * 0.3 - valorMinimoExistencial;
+  
+          for (let i = 60; i >= 1; i--) {
+            const valorParcela = (dividaTotal / i);
+  
+            if (valorParcela <= valorMaximoDisponivel) {
+              valorParcelaMaxima = valorParcela;
+              parcelasMaximas = i;
+              break;
+            }
+          }
+  
+          resultado += `\nCom a redução das despesas, o valor mínimo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
+        }
+      } else {
+        resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
+      }
+  
+      document.getElementById('resultado-simulacao').textContent = resultado;
+    }
   </script>
 </div>
 
