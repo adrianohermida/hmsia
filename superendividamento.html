@@ -243,37 +243,45 @@
       </div>
     </div>
 
-    <button type="button" onclick="simularReducaoEndividamento()">Simular</button>
+    <button type="button" onclick="simularPlanoContas()">Simular</button>
   </form>
 
   <div id="resultado-simulacao"></div>
 
   <script>
-    function simularReducaoEndividamento() {
+    function simularPlanoContas() {
       const dividaTotal = Number(document.getElementById('divida-total').value);
       const rendaMensal = Number(document.getElementById('renda-mensal').value);
       const valorDespesas = Number(document.getElementById('valor-despesas').value);
-      
-      let custoAssessoriaJuridica = 197.00;
-      if (rendaMensal <= 3 * 1100) {
-        custoAssessoriaJuridica = 139.00;
+
+      const valorMinimoExistencial = rendaMensal * 0.3;
+
+      let valorParcelaMaxima = 0;
+      let parcelasMaximas = 0;
+
+      for (let i = 60; i >= 1; i--) {
+        const valorParcela = (dividaTotal / i);
+        const valorDisponivelParaPagar = (rendaMensal - valorDespesas - valorMinimoExistencial);
+        
+        if (valorParcela <= valorDisponivelParaPagar) {
+          valorParcelaMaxima = valorParcela;
+          parcelasMaximas = i;
+          break;
+        }
       }
-      
-      const dividaDescontada = dividaTotal * 0.8;
-      const parcelasMaximas = Math.floor(dividaDescontada / custoAssessoriaJuridica);
-      const parcelaMaxima = Math.floor((rendaMensal - valorDespesas) * 0.3);
-      
+
       let resultado = '';
-      if (parcelaMaxima >= custoAssessoriaJuridica) {
-        resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${parcelaMaxima}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes.`;
+      if (valorParcelaMaxima > 0) {
+        resultado = `O valor máximo da parcela que você deve pagar para que o plano de contas seja aprovado é de R$ ${valorParcelaMaxima.toFixed(2)}. Com esse valor, você poderá parcelar suas dívidas em até ${parcelasMaximas} vezes. Entre em contato conosco para saber como podemos te ajudar.`;
       } else {
-        resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Procure um especialista para ajudá-lo a renegociar suas dívidas.';
+        resultado = 'Você não tem condições financeiras de pagar o plano de contas compulsório. Entre em contato conosco para ajudá-lo a renegociar suas dívidas.';
       }
       
       document.getElementById('resultado-simulacao').textContent = resultado;
     }
   </script>
 </div>
+
 <!--Formulário de endividamento-->
 
                 </div>
